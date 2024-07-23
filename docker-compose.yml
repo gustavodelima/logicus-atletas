@@ -1,0 +1,88 @@
+services:
+  db:
+    # Serviço de banco de dados PostgreSQL
+    image: postgres
+    volumes:
+      # Monta o diretório local ./data/db no diretório de dados do PostgreSQL
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      # Variáveis de ambiente para configurar o banco de dados PostgreSQL
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  web:
+    # Serviço web que utiliza a imagem criada a partir do Dockerfile no diretório atual
+    build: .
+    # Comando para rodar o servidor Django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      # Monta o diretório atual no diretório /code dentro do contêiner
+      - .:/code
+    ports:
+      # Mapeia a porta 8000 do host para a porta 8000 do contêiner
+      - "8000:8000"
+    environment:
+      # Variáveis de ambiente para configurar a aplicação web
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      # Garante que o serviço db seja iniciado antes deste serviço
+      - db
+
+  pgadmin:
+    # Serviço de administração do PostgreSQL utilizando a imagem pgAdmin4
+    image: dpage/pgadmin4
+    environment:
+      # Variáveis de ambiente para configurar o pgAdmin
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      # Mapeia a porta 5050 do host para a porta 80 do contêiner
+      - "5050:80"
+    depends_on:
+      # Garante que o serviço db seja iniciado antes deste serviço
+      - db
+
+  prometheus:
+    # Serviço de monitoramento utilizando a imagem Prometheus
+    image: prom/prometheus
+    volumes:
+      # Monta o diretório local ./prometheus no diretório de configuração do Prometheus
+      - ./prometheus:/etc/prometheus
+      # Define um volume nomeado para armazenar os dados do Prometheus
+      - prometheus_data:/prometheus
+    command:
+      # Comandos para configurar o Prometheus
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    ports:
+      # Mapeia a porta 9090 do host para a porta 9090 do contêiner
+      - "9090:9090"
+    depends_on:
+      # Garante que o serviço web seja iniciado antes deste serviço
+      - web
+
+  grafana:
+    # Serviço de visualização de dados utilizando a imagem Grafana
+    image: grafana/grafana
+    volumes:
+      # Define um volume nomeado para armazenar os dados do Grafana
+      - grafana_data:/var/lib/grafana
+    environment:
+      # Variáveis de ambiente para configurar o Grafana
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+    ports:
+      # Mapeia a porta 3000 do host para a porta 3000 do contêiner
+      - "3000:3000"
+    depends_on:
+      # Garante que o serviço Prometheus seja iniciado antes deste serviço
+      - prometheus
+
+volumes:
+  # Define volumes nomeados para armazenar dados persistentes
+  prometheus_data:
+  grafana_data:

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório do Atleta</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="section-title">Informações Pessoais</div>
+        <p><strong>Nome:</strong> {{ jogador.nome }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ jogador.data_nascimento|date:"d/m/Y" }}</p>
+        <p><strong>Nacionalidade:</strong> {{ jogador.nacionalidade }}</p>
+        <p><strong>Email:</strong> {{ jogador.email }}</p>
+        <p><strong>Telefone:</strong> {{ jogador.telefone }}</p>
+        <!-- Adicione mais informações pessoais conforme necessário -->
+    </div>
+    
+    <!-- Contratos -->
+    <div class="section">
+        <div class="section-title">Contratos</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data Início</th>
+                    <th>Data Término</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contrato in contratos %}
+                <tr>
+                    <td>{{ contrato.data_inicio|date:"d/m/Y" }}</td>
+                    <td>{{ contrato.data_termino|date:"d/m/Y" }}</td>
+                    <td>R$ {{ contrato.valor_contrato }}</td>
+                    <td>{{ contrato.get_tipo_contrato_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Testes de Desempenho -->
+    <div class="section">
+        <div class="section-title">Testes de Desempenho</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th>Aprovado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teste in testes %}
+                <tr>
+                    <td>{{ teste.nome.categoria_de_teste }}</td>
+                    <td>{{ teste.data_realizacao|date:"d/m/Y" }}</td>
+                    <td>{{ teste.aprovado|yesno:"Sim,Não" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Adicione mais seções aqui para nutrição, treinamentos, etc., seguindo o mesmo padrão -->
+    
+</body>
+</html>

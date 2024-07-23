@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+
+{% load i18n %}
+
+
+{% load static %}
+
+{% block title %}{{ title }} | {% trans "Logicus Esportes" %}{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">{% trans "Logicus Esportes (Versão 0.0.1)" %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+

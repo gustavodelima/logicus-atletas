@@ -1,0 +1,76 @@
+.button, input[type=submit], .submit-row input, a.button {
+    background: var(--blue-gray); /* Fundo azul para os botões */
+    color: #FFFFFF; /* Texto em branco para contraste máximo */
+    border: 1px solid var(--dark-gray); /* Adiciona um contorno para melhor definição */
+}
+
+.button:hover, input[type=submit]:hover {
+    background: var(--bright-yellow); /* Mudança para amarelo brilhante ao passar o mouse */
+    color: var(--dark-gray); /* Texto em cinza muito mais escuro para contraste */
+    border-color: var(--bright-yellow); /* Contorno em amarelo brilhante para consistência */
+}
+
+
+/* Define as cores baseadas na lista RGB fornecida */
+:root {
+    --blue-gray: rgb(186, 195, 213); /* Um tom claro de azul-cinza */
+    --dark-gray: rgb(83, 86, 92); /* Um cinza muito mais escuro para o texto */
+    --gray2: rgb(155, 162, 165); /* Outro cinza, ligeiramente mais azulado */
+    --almost-white: rgb(254, 255, 250); /* Quase branco, com um toque muito sutil de amarelo */
+    --pale-blue: rgb(216, 228, 230); /* Um azul pálido */
+    --bright-yellow: rgb(255, 203, 84); /* Um tom brilhante de amarelo */
+}
+
+body {
+    background: var(--almost-white); /* Aplicando o quase branco ao fundo */
+    color: var(--dark-gray); /* Texto principal em preto para contraste máximo */
+    /*background-image: url('fundo002.jpg'); /* Caminho para sua imagem de marca d'água */
+    /*background-repeat: no-repeat; /* Para não repetir a imagem */
+    /*background-position: center; /* Centraliza a imagem no fundo */
+    /*background-size: contain; /* Ajusta a imagem para caber dentro do elemento, mantendo as proporções */
+    /*opacity: 70.5; /* Ajusta a transparência da imagem */
+}
+
+#header {
+    background: var(--blue-gray); /* Cabeçalho em azul-cinza */
+    color: var(--almost-white); /* Texto do cabeçalho em quase branco */
+}
+
+#branding h1, a, a:link, a:visited {
+    color: var(--dark-gray); /* Título do cabeçalho e links agora em cinza muito mais escuro */
+}
+
+a:hover {
+    color: var(--bright-yellow); /* Links ao passar o mouse em amarelo brilhante */
+}
+
+.divider, .breadcrumbs, .module caption {
+    background: var(--gray2); /* Elementos de divisão e módulos em cinza ligeiramente azulado */
+    color: var(--dark-gray); /* Texto nesses elementos em cinza muito mais escuro */
+}
+
+/* Melhorando a legibilidade do texto em geral para um cinza muito mais escuro */
+p, h2, li, .addlink, .changelink, .deletelink {
+    color: var(--dark-gray); /* Usando um cinza muito mais escuro para texto */
+}
+
+div.datetime {
+    background: var(--gray2); /* Inputs de data/hora em cinza ligeiramente azulado */
+    color: var(--dark-gray); /* Texto em cinza muito mais escuro */
+}
+
+#content h1 {
+    text-align: center;
+    border: 2px solid var(--pale-blue);
+    border-radius: 32px;
+    color: var(--dark-gray); /* Tornando o texto do título mais escuro para contraste */
+}
+
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
